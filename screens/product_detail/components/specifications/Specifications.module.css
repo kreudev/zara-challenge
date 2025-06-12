@@ -1,0 +1,25 @@
+.productDetail__specs {
+  display: grid;
+  gap: 2rem;
+  .productDetail__specs__title {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+  .specsGrid {
+    display: grid;
+    .specItem {
+      display: grid;
+      gap: 1rem;
+      font-size: 12px;
+      grid-template-columns: 1fr 2fr;
+      padding-block: 1rem;
+      border-bottom: var(--size-border, 1px) solid var(--color-border, #000);
+      &:first-child {
+        border-top: var(--size-border, 1px) solid var(--color-border, #000);
+      }
+      & span:first-child {
+        text-transform: uppercase;
+      }
+    }
+  }
+}

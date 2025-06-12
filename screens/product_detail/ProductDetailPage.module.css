@@ -1,0 +1,15 @@
+.productDetail {
+  row-gap: clamp(5rem, 10.667vw + 2rem, 10rem);
+  animation: fadeIn 0.3s ease-in-out;
+  position: relative;
+  margin: 50px auto;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

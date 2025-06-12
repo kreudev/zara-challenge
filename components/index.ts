@@ -1,0 +1,6 @@
+export * from './PhoneCard/PhoneCard'
+export * from './CartButton/CartButton'
+export * from './Header/Header'
+export * from './ProductCardCart/ProductCardCart'
+export * from './SearchBar/SearchBar'
+export * from './LoadingBar/LoadingBar'
