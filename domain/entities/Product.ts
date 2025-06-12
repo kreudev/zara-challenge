@@ -1,1 +1,1 @@
-export type { Product } from '../interfaces'
+export type { Product } from '@/domain/interfaces'

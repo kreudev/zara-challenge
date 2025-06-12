@@ -1,1 +1,1 @@
-export type { ProductBase as ProductList } from './interfaces'
+export type { ProductBase as ProductList } from '@/domain/interfaces'
