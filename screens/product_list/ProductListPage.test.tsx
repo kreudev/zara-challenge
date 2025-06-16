@@ -19,26 +19,26 @@ describe('ProductListPage', () => {
 
   it('renders the loading indicator when fetching data', () => {
     jest.spyOn(useFetchModule, 'useFetch').mockReturnValue({ data: undefined, loading: true, error: null });
-    render(<ProductListPage />);
+    render(<ProductListPage initialProducts={[]} />);
     expect(screen.getByRole('status')).toBeInTheDocument();
   });
 
   it('displays an error message if fetching fails', () => {
     jest.spyOn(useFetchModule, 'useFetch').mockReturnValue({ data: undefined, loading: false, error: new Error('error') });
-    render(<ProductListPage />);
+    render(<ProductListPage initialProducts={[]} />);
     expect(screen.getByText(/Error: Could not get the product list/i)).toBeInTheDocument();
   });
 
   it('shows product cards for each product in the list', () => {
     jest.spyOn(useFetchModule, 'useFetch').mockReturnValue({ data: mockProducts, loading: false, error: null });
-    render(<ProductListPage />);
+    render(<ProductListPage initialProducts={[]} />);
     expect(screen.getByText('iPhone')).toBeInTheDocument();
     expect(screen.getAllByText('Samsung').length).toBeGreaterThan(0);
   });
 
   it('shows a message when no products match the search', () => {
     jest.spyOn(useFetchModule, 'useFetch').mockReturnValue({ data: [], loading: false, error: null });
-    render(<ProductListPage />);
+    render(<ProductListPage initialProducts={[]} />);
     expect(screen.getByText(/No products found/i)).toBeInTheDocument();
   });
 }); 
