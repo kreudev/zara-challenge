@@ -1,9 +1,28 @@
-import { ProductDetailPage } from '@/screens';
-import React from 'react'
+import { Suspense } from 'react'
+import { notFound } from 'next/navigation'
+import { getProductById } from '@/services/use-cases'
+import { ProductDetailPage } from '@/screens/product_detail/ProductDetailPage'
+import { LoadingBar } from '@/components'
+import { toPlainProduct } from '@/domain/transformers/product-transformer'
 
-export default function ProductDetail({ params }: { params: Promise<{ id: string }> }){
-    const resolvedParams = React.use(params)
+interface ProductPageProps {
+    params: {
+        id: string
+    }
+}
+
+export default async function ProductPage({ params }: ProductPageProps) {
+    const product = await getProductById({ id: params.id })
+
+    if (!product) {
+        notFound()
+    }
+
+    const plainProduct = toPlainProduct(product)
+
     return (
-        <ProductDetailPage id={resolvedParams.id} />
-    );
+        <Suspense fallback={<LoadingBar loading={true} />}>
+            <ProductDetailPage product={plainProduct} />
+        </Suspense>
+    )
 }
