@@ -39,32 +39,60 @@ Este proyecto es una aplicación web desarrollada con Next.js, React y TypeScrip
 El proyecto está organizado siguiendo los principios de **Domain-Driven Design** para separar claramente las responsabilidades y facilitar la escalabilidad y el mantenimiento.
 
 ```
-├── services/              # Casos de uso (lógica de negocio)
-│   └── use-cases/         # Ej: getProducts, getProductById
-├── components/            # Componentes comunes y reutilizables (SearchBar, LoadingBar, etc)
-├── context/               # Contextos de React para el estado global (ej: CartContext)
-├── domain/                # Capa de dominio
-│   ├── entities/          # Entidades principales del dominio
-│   ├── value-objects/     # Objetos de valor (Price, Color, Storage, etc)
-│   └── interfaces.ts      # Interfaces de dominio (Product, ApiProduct, etc)
-├── hooks/                 # Custom hooks de React (useFetch, useDebounce, etc)
-├── icons/                 # Iconos SVG y componentes de iconos
-├── infrastructure/        # Adaptadores y persistencia
-│   ├── api/               # Llamadas a APIs externas
-│   └── persistence/       # Persistencia local (localStorage)
-├── screens/               # Páginas principales de la app (cada screen es una página)
-│   ├── cart/              # Página del carrito
-│   ├── product_list/      # Página de listado de productos
-│   ├── product_detail/    # Página de detalle de producto
+├── app/                  # Páginas y rutas de Next.js (App Router)
+├── services/             # Casos de uso (lógica de negocio)
+│   └── use-cases/        # Ej: getProducts, getProductById
+├── components/           # Componentes comunes y reutilizables (SearchBar, LoadingBar, etc)
+├── context/             # Contextos de React para el estado global (ej: CartContext)
+├── domain/              # Capa de dominio
+│   ├── entities/         # Entidades principales del dominio
+│   ├── value-objects/    # Objetos de valor (Price, Color, Storage, etc)
+│   └── interfaces.ts     # Interfaces de dominio (Product, ApiProduct, etc)
+├── hooks/               # Custom hooks de React (useFetch, useDebounce, etc)
+├── icons/               # Iconos SVG y componentes de iconos
+├── infrastructure/      # Adaptadores y persistencia
+│   ├── api/             # Llamadas a APIs externas
+│   └── persistence/     # Persistencia local (localStorage)
+├── screens/             # Componentes principales de cada página
+│   ├── cart/            # Componentes de la página del carrito
+│   ├── product_list/    # Componentes de la página de listado
+│   ├── product_detail/  # Componentes de la página de detalle
 │   └── ...
-├── test/                  # Mocks y utilidades para testing
-├── utils/                 # Utilidades y helpers generales
-├── public/                # Archivos estáticos
-├── styles/                # Estilos globales
-├── jest.config.js/ts      # Configuración de Jest para tests
-├── tsconfig.json          # Configuración de TypeScript
-└── package.json           # Scripts y dependencias
+├── test/               # Mocks y utilidades para testing
+├── utils/              # Utilidades y helpers generales
+├── public/             # Archivos estáticos
+├── styles/             # Estilos globales
+├── jest.config.js/ts   # Configuración de Jest para tests
+├── tsconfig.json       # Configuración de TypeScript
+└── package.json        # Scripts y dependencias
 ```
+
+### 📁 Estructura de Screens y Server/Client Components
+
+La carpeta `screens/` contiene los componentes principales de cada página, separando la lógica de la ruta (`app/`) de la implementación. Esta separación permite:
+
+1. **Mejor organización**: Cada screen puede tener su propia estructura de carpetas con componentes, hooks, y estilos.
+2. **Separación de responsabilidades**: 
+   - Las páginas en `app/` se enfocan en la obtención de datos y el routing
+   - Los componentes en `screens/` manejan la UI y la lógica de cliente
+
+#### 🔄 Server y Client Components
+
+En Next.js 13+, todos los componentes son Server Components por defecto. La directiva `'use client'` se usa cuando un componente necesita:
+
+1. **Hooks de React**: 
+   - `useState`, `useEffect`, `useContext`, etc.
+   - Custom hooks que usen hooks de React
+   - Ejemplo: `useCart` para el contexto del carrito
+
+2. **Interactividad del cliente**:
+   - Event listeners (`onClick`, `onChange`, etc.)
+   - Manipulación del DOM
+   - APIs del navegador
+
+3. **Optimización de rendimiento**:
+   - Usamos `dynamic imports` para componentes cliente pesados
+   - Esto permite que el servidor renderice la estructura básica mientras el cliente carga los componentes interactivos
 
 ---
 
